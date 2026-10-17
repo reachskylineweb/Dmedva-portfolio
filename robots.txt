@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Update with final live domain before production launch
+Sitemap: https://www.dmedva.com/sitemap.xml

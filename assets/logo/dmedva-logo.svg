@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 62" width="216" height="62" role="img" aria-label="D-Medva">
+  <rect width="216" height="62" rx="8" fill="#FFFFFF"/>
+  <!-- Crisp Bold Serif D- -->
+  <text x="8" y="48" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="52" fill="#1C9E75" letter-spacing="-1">D-</text>
+  <!-- Rounded Emerald Pill for Medva -->
+  <rect x="72" y="7" width="138" height="48" rx="13" fill="#1C9E75"/>
+  <text x="141" y="41" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="33" fill="#FFFFFF" letter-spacing="0.4">Medva</text>
+</svg>
