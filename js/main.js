@@ -83,9 +83,56 @@
     }
   }
 
+  /* --------------------------------------------------------------------------
+   * 2B. Featured Case Studies Hospital Switcher Tabs
+   * -------------------------------------------------------------------------- */
+  const csTabButtons = Array.from(document.querySelectorAll('.cs-tab-btn'));
+  const csItems = Array.from(document.querySelectorAll('.cs-item'));
+
+  function activateCaseStudyTab(targetId) {
+    if (!targetId || csTabButtons.length === 0 || csItems.length === 0) return false;
+    const cleanId = targetId.replace(/^#/, '');
+    const matchingItem = document.getElementById(cleanId);
+    if (!matchingItem || !matchingItem.classList.contains('cs-item')) return false;
+
+    csTabButtons.forEach(function (btn) {
+      const isMatch = btn.getAttribute('data-cs-tab') === cleanId;
+      btn.classList.toggle('is-active', isMatch);
+      btn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+    });
+
+    csItems.forEach(function (item) {
+      const isMatch = item.id === cleanId;
+      item.classList.toggle('is-active', isMatch);
+      if (isMatch) {
+        item.removeAttribute('hidden');
+        const marqueeTrack = item.querySelector('.brand-carousel-marquee-track');
+        if (marqueeTrack) {
+          marqueeTrack.style.animation = 'none';
+          void marqueeTrack.offsetWidth;
+          marqueeTrack.style.animation = '';
+        }
+      } else {
+        item.setAttribute('hidden', '');
+      }
+    });
+
+    return true;
+  }
+
+  if (csTabButtons.length > 0) {
+    csTabButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const targetId = btn.getAttribute('data-cs-tab');
+        activateCaseStudyTab(targetId);
+      });
+    });
+  }
+
   if (window.location.hash || /\/index\.html$/i.test(window.location.pathname)) {
     const initialHash = window.location.hash;
     if (initialHash && initialHash !== '#hero' && initialHash !== '#top') {
+      activateCaseStudyTab(initialHash);
       const initialTarget = document.querySelector(initialHash);
       if (initialTarget) {
         setTimeout(function () {
@@ -108,9 +155,20 @@
     if (href === '#hero' || href === '#top') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      const targetSection = document.querySelector(href);
-      if (targetSection) {
-        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const switchedTab = activateCaseStudyTab(href);
+      if (switchedTab) {
+        const tabsBar = document.querySelector('.cs-tabs-bar') || document.getElementById('case-studies');
+        if (tabsBar) {
+          const headerEl = document.querySelector('.site-header');
+          const headerOffset = headerEl ? headerEl.offsetHeight + 16 : 94;
+          const topPos = tabsBar.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+          window.scrollTo({ top: Math.max(0, topPos), behavior: 'smooth' });
+        }
+      } else {
+        const targetSection = document.querySelector(href);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     }
 
@@ -615,6 +673,60 @@
       if (composed) {
         window.open(composed.gmailUrl, '_blank');
       }
+    });
+  }
+
+  /* 3-Hospital Google Search Console SEO Proof Switcher & Lightbox (#seo-proof) */
+  const gscTabButtons = Array.from(document.querySelectorAll('[data-gsc-tab]'));
+  const gscTabPanels = Array.from(document.querySelectorAll('[data-gsc-panel]'));
+  const gscLightboxCards = Array.from(document.querySelectorAll('[data-gsc-lightbox]'));
+
+  if (gscTabButtons.length > 0 && gscTabPanels.length > 0) {
+    gscTabButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const target = btn.getAttribute('data-gsc-tab');
+        gscTabButtons.forEach(function (b) {
+          const active = b.getAttribute('data-gsc-tab') === target;
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        gscTabPanels.forEach(function (panel) {
+          const active = panel.getAttribute('data-gsc-panel') === target;
+          panel.classList.toggle('is-active', active);
+          if (active) {
+            panel.removeAttribute('hidden');
+          } else {
+            panel.setAttribute('hidden', '');
+          }
+        });
+      });
+    });
+  }
+
+  if (gscLightboxCards.length > 0) {
+    gscLightboxCards.forEach(function (card) {
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+
+      function openGscReport() {
+        const img = card.querySelector('img');
+        const cap = card.querySelector('.gsc-screen-caption');
+        if (!img) return;
+        openLightbox(
+          img.getAttribute('src'),
+          img.alt,
+          cap ? cap.textContent.trim() : img.alt,
+          card
+        );
+      }
+
+      card.addEventListener('click', openGscReport);
+      card.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openGscReport();
+        }
+      });
     });
   }
 })();
