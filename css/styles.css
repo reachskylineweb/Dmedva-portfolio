@@ -449,10 +449,11 @@ textarea {
 }
 
 .hero-lead {
-  font-size: clamp(1.06rem, 0.45vw + 0.95rem, 1.22rem);
+  font-size: clamp(0.98rem, 0.35vw + 0.9rem, 1.1rem);
+  line-height: 1.65;
   color: var(--text-secondary);
-  max-width: 58ch;
-  margin-bottom: 2rem;
+  max-width: 60ch;
+  margin-bottom: 1.35rem;
 }
 
 .hero-actions {
@@ -465,8 +466,9 @@ textarea {
 .hero-pillars {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.65rem 1.25rem;
-  padding-top: 1.5rem;
+  gap: 0.55rem 1.15rem;
+  padding: 1rem 0 1.35rem;
+  margin-bottom: 0.35rem;
   border-top: 1px solid var(--border-subtle);
 }
 
@@ -474,9 +476,120 @@ textarea {
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   font-weight: 600;
   color: var(--text-primary);
+}
+
+/* Tools & Platforms Marquee Strip inside Hero */
+.hero-tools-marquee {
+  margin-top: clamp(1.85rem, 3vw, 2.5rem);
+  padding: 0.85rem 1.15rem;
+  background: #FFFFFF;
+  border: 1px solid #D5E8E0;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(13, 38, 32, 0.04);
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+  overflow: hidden;
+}
+
+.hero-tools-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-right: 1.15rem;
+  border-right: 1px solid #DCEBE4;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #0D5C47;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.hero-tools-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #16866B;
+  box-shadow: 0 0 0 3px rgba(22, 134, 107, 0.18);
+  flex-shrink: 0;
+}
+
+.hero-tools-viewport {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+}
+
+.hero-tools-track {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: max-content;
+  animation: autoScrollMarquee 65s linear infinite;
+  -webkit-animation: autoScrollMarquee 65s linear infinite;
+  will-change: transform;
+}
+
+.hero-tools-marquee:hover .hero-tools-track {
+  animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+}
+
+.hero-tool-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.48rem;
+  padding: 0.42rem 0.85rem;
+  background: #F6FBF9;
+  border: 1px solid #DCEBE4;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0D2620;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.hero-tool-pill svg,
+.hero-tool-pill img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .hero-pillars {
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+    padding: 0.85rem 0 1.1rem;
+  }
+
+  .hero-tools-marquee {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.75rem 0.85rem;
+  }
+
+  .hero-tools-label {
+    border-right: none;
+    padding-right: 0;
+    font-size: 0.68rem;
+  }
+
+  .hero-tools-viewport {
+    width: 100%;
+  }
 }
 
 .pillar-check {
@@ -762,6 +875,7 @@ textarea {
    7. CAPABILITIES SECTION (MODERN SAAS ALTERNATING ZIGZAG + ICON BLOBS)
    ========================================================================== */
 .capabilities-section {
+  display: none !important;
   position: relative;
   overflow: hidden;
   background: linear-gradient(180deg, #F8FCFA 0%, #FFFFFF 22%, #F6FBF8 58%, #FFFFFF 100%);
@@ -4971,6 +5085,228 @@ textarea {
     line-height: 1.35;
   }
 }
+
+/* =====================================================================
+   CASE STUDY OVERVIEW CARDS (3 HOSPITAL CARDS -> DEDICATED PAGES)
+   ===================================================================== */
+.cs-overview-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.65rem;
+  align-items: stretch;
+}
+
+.cs-overview-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(15, 36, 30, 0.1);
+  border-radius: 22px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 12px 32px rgba(15, 36, 30, 0.05);
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.25s ease;
+}
+
+.cs-overview-card:hover,
+.cs-overview-card:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 48px rgba(15, 36, 30, 0.11);
+  border-color: rgba(22, 134, 107, 0.38);
+  outline: none;
+}
+
+.cs-ov-img-wrap {
+  position: relative;
+  height: 245px;
+  overflow: hidden;
+  background: #EAF4F0;
+}
+
+.cs-ov-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#case-supreme .cs-ov-img-wrap img,
+#case-healing-earth .cs-ov-img-wrap img {
+  object-position: center bottom;
+}
+
+.cs-overview-card:hover .cs-ov-img-wrap img {
+  transform: scale(1.04);
+}
+
+.cs-ov-pkg-badge {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.36rem 0.78rem;
+  border-radius: 999px;
+  background: rgba(15, 36, 30, 0.86);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cs-ov-body {
+  padding: 1.5rem 1.45rem 1.45rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cs-ov-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.cs-ov-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  object-fit: contain;
+  background: #F4FAF7;
+  border: 1px solid rgba(22, 134, 107, 0.18);
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.cs-ov-loc {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #16866B;
+  margin-bottom: 0.12rem;
+}
+
+.cs-ov-title {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: #0F241E;
+  line-height: 1.24;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.cs-ov-desc {
+  font-size: 0.88rem;
+  color: #465B54;
+  line-height: 1.58;
+  margin: 0 0 1.15rem;
+  flex: 1;
+}
+
+.cs-ov-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.cs-ov-metric {
+  background: #F4FAF7;
+  border: 1px solid rgba(22, 134, 107, 0.14);
+  border-radius: 11px;
+  padding: 0.55rem 0.55rem;
+  text-align: left;
+}
+
+.cs-ov-metric strong {
+  display: block;
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #0C4738;
+  line-height: 1.2;
+  margin-bottom: 0.15rem;
+}
+
+.cs-ov-metric span {
+  display: block;
+  font-size: 0.67rem;
+  font-weight: 600;
+  color: #526860;
+  line-height: 1.25;
+}
+
+.cs-ov-cta {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.82rem 1.05rem;
+  border-radius: 12px;
+  background: #0F241E;
+  color: #FFFFFF;
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cs-overview-card:hover .cs-ov-cta {
+  background: #16866B;
+}
+
+.cs-ov-cta svg {
+  transition: transform 0.2s ease;
+}
+
+.cs-overview-card:hover .cs-ov-cta svg {
+  transform: translateX(4px);
+}
+
+@media (max-width: 1040px) {
+  .cs-overview-cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .cs-overview-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+
+  .cs-ov-img-wrap {
+    height: 200px;
+  }
+
+  .cs-ov-body {
+    padding: 1.2rem 1.1rem 1.15rem;
+  }
+
+  .cs-ov-title {
+    font-size: 1.1rem;
+  }
+
+  .cs-ov-desc {
+    font-size: 0.85rem;
+  }
+
+  .cs-ov-metric strong {
+    font-size: 0.8rem;
+  }
+}
+
 
 
 
