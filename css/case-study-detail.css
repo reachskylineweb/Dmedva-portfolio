@@ -1131,11 +1131,13 @@
 }
 
 /* Fit static 1:1 posters (cards without a play button) completely inside the card without zooming/cropping */
-.cs-marquee-block.is-before-showcase .brand-short-thumb-container:not(:has(.brand-short-play-btn)) {
+.cs-marquee-block.is-before-showcase .brand-short-thumb-container:not(:has(.brand-short-play-btn)),
+.cs-marquee-block[data-client="gem-camps"] .brand-short-thumb-container {
   background: #F4F8F6;
 }
 
-.cs-marquee-block.is-before-showcase .brand-short-thumb-container:not(:has(.brand-short-play-btn)) img {
+.cs-marquee-block.is-before-showcase .brand-short-thumb-container:not(:has(.brand-short-play-btn)) img,
+.cs-marquee-block[data-client="gem-camps"] .brand-short-thumb-container img {
   object-fit: contain;
 }
 
